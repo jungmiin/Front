@@ -8,10 +8,11 @@ const VideoPlayer = () => {
   const playList = [
     "http://sldict.korean.go.kr/multimedia/multimedia_files/convert/20200821/733655/MOV000256297_700X466.mp4",
     "https://sldict.korean.go.kr/multimedia/multimedia_files/convert/20191016/628088/MOV000250671_700X466.mp4",
+    "http://sldict.korean.go.kr/multimedia/multimedia_files/convert/20160325/259366/MOV000268366_700X466.mp4",
   ];
 
-  const handleNextVideo = (videoList, playIndex) => {
-    if (playIndex === videoList.length - 1) {
+  const handleNextVideo = (playList, playIndex) => {
+    if (playIndex === playList.length - 1) {
       setPlayIndex(0);
     } else {
       setPlayIndex(playIndex + 1);
