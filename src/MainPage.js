@@ -1,4 +1,5 @@
 import React from "react";
+import VideoPlayer from "./VideoPlayer";
 
 const buttonStyle = {
   width: "7rem",
@@ -50,7 +51,7 @@ function MainPage() {
             border: "1px solid #ddd",
           }}
         >
-          Column
+          <VideoPlayer />
         </div>
         <div className="col-md-1"></div>
       </div>
