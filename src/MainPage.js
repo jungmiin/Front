@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useSpeechRecognition } from "react-speech-kit";
 import { createWorker } from "tesseract.js";
 import VideoPlayer from "./VideoPlayer";
+import DataHandler from "./DataHandler";
 const buttonStyle = {
   width: "7rem",
   height: "3rem",
@@ -15,7 +16,7 @@ const buttonStyle = {
 function MainPage() {
   const [textValue, setTextValue] = useState("");
   const [listenActivating, setListenActivating] = useState(false);
-  const [showVideoPlayer, setShowVideoPlayer] = useState(false);
+  const [playList, updatePlayList] = useState(0);
   let inputRef;
   const { listen, stop } = useSpeechRecognition({
     onResult: (result) => {
@@ -79,9 +80,14 @@ function MainPage() {
 
   //번역하기 버튼 누를시
   const onButtonClick = () => {
-    console.log("번역하기 버튼 클릭");
-    if (showVideoPlayer === false) setShowVideoPlayer(true);
+    //DataHandler()에서 주소 리스트 받아옴
+    const getData = async () => {
+      const data = await DataHandler(ocr ? ocr.replaceAll(" ", "").replaceAll("_", " ") : textValue);
+      updatePlayList(data);
+    };
+    getData();
   };
+
   return (
     <>
       <div className="container-fluid text-center mt-5">
@@ -179,7 +185,7 @@ function MainPage() {
               border: "1px solid #ddd",
             }}
           >
-            {showVideoPlayer && <VideoPlayer data={ocr ? ocr.replaceAll(" ", "").replaceAll("_", " ") : textValue} />}
+            <VideoPlayer list={playList} />
           </div>
           <div className="col-md-1"></div>
         </div>

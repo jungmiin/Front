@@ -5,8 +5,8 @@ const DataHandler = async (data) => {
 
   console.log(server + sentence);
   const result = await fetch(server + sentence);
-  const testList = await result.json();
-  return testList;
+  const list = await result.json();
+  return list;
 };
 
 export default DataHandler;
