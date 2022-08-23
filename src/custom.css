@@ -4,3 +4,7 @@
     border:none !important;
     outline:none !important;
 }
+
+.myHover:hover{
+    cursor: pointer;
+}
