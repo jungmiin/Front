@@ -15,6 +15,7 @@ const buttonStyle = {
 function MainPage() {
   const [textValue, setTextValue] = useState("");
   const [listenActivating, setListenActivating] = useState(false);
+  const [showVideoPlayer, setShowVideoPlayer] = useState(false);
   let inputRef;
   const { listen, stop } = useSpeechRecognition({
     onResult: (result) => {
@@ -76,6 +77,11 @@ function MainPage() {
     else stop();
   }, [listenActivating]);
 
+  //번역하기 버튼 누를시
+  const onButtonClick = () => {
+    console.log("번역하기 버튼 클릭");
+    if (showVideoPlayer === false) setShowVideoPlayer(true);
+  };
   return (
     <>
       <div className="container-fluid text-center mt-5">
@@ -103,17 +109,8 @@ function MainPage() {
               <div className="p-4">
                 {image ? (
                   <div className="text-center ">
-                    <img
-                      src={image}
-                      style={{ width: "30rem", height: "20rem" }}
-                      alt="UploadedImage"
-                    />
-                    <button
-                      type="button"
-                      class="btn-close"
-                      aria-label="Close"
-                      onClick={deleteImage}
-                    ></button>
+                    <img src={image} style={{ width: "30rem", height: "20rem" }} alt="UploadedImage" />
+                    <button type="button" class="btn-close" aria-label="Close" onClick={deleteImage}></button>
                   </div>
                 ) : (
                   <textarea
@@ -167,7 +164,7 @@ function MainPage() {
                 </svg>
                 {/* <p>{image.image_file.name}</p> */}
 
-                <button className="p-2 float-end" style={buttonStyle}>
+                <button className="p-2 float-end" style={buttonStyle} onClick={onButtonClick}>
                   번역하기
                 </button>
               </div>
@@ -182,7 +179,7 @@ function MainPage() {
               border: "1px solid #ddd",
             }}
           >
-            <VideoPlayer />
+            {showVideoPlayer && <VideoPlayer data={textValue} />}
           </div>
           <div className="col-md-1"></div>
         </div>
