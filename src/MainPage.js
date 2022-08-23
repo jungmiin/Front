@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSpeechRecognition } from "react-speech-kit";
 import { createWorker } from "tesseract.js";
-
+import VideoPlayer from "./VideoPlayer";
 const buttonStyle = {
   width: "7rem",
   height: "3rem",
@@ -182,10 +182,11 @@ function MainPage() {
               border: "1px solid #ddd",
             }}
           >
-            Column
+            <VideoPlayer />
           </div>
           <div className="col-md-1"></div>
         </div>
+
         <div className="row m-0 justify-content-center align-start text-start"></div>
         <p className="float-start "></p>
       </div>
