@@ -179,7 +179,7 @@ function MainPage() {
               border: "1px solid #ddd",
             }}
           >
-            {showVideoPlayer && <VideoPlayer data={textValue} />}
+            {showVideoPlayer && <VideoPlayer data={ocr ? ocr.replaceAll(" ", "").replaceAll("_", " ") : textValue} />}
           </div>
           <div className="col-md-1"></div>
         </div>
