@@ -119,29 +119,15 @@ function MainPage() {
                 {image ? (
                   ocr == 100 ? (
                     <div style={{ width: "30rem", height: "20rem" }}>
-                      <img
-                        src={loadingImage}
-                        style={{ width: "10rem", height: "10rem" }}
-                        alt="loading"
-                      />
+                      <img src={loadingImage} style={{ width: "10rem", height: "10rem" }} alt="loading" />
                       <p>
-                        이미지를 한국어로 변환 중 입니다.. <br></br>잠시 기다려
-                        주세요
+                        이미지를 한국어로 변환 중 입니다.. <br></br>잠시 기다려 주세요
                       </p>
                     </div>
                   ) : (
                     <div className="text-center ">
-                      <img
-                        src={image}
-                        style={{ width: "30rem", height: "20rem" }}
-                        alt="UploadedImage"
-                      />
-                      <button
-                        type="button"
-                        class="btn-close"
-                        aria-label="Close"
-                        onClick={deleteImage}
-                      ></button>
+                      <img src={image} style={{ width: "30rem", height: "20rem" }} alt="UploadedImage" />
+                      <button type="button" class="btn-close" aria-label="Close" onClick={deleteImage}></button>
                     </div>
                   )
                 ) : (
@@ -196,11 +182,7 @@ function MainPage() {
                 </svg>
                 {/* <p>{image.image_file.name}</p> */}
 
-                <button
-                  className="p-2 float-end"
-                  style={buttonStyle}
-                  onClick={onButtonClick}
-                >
+                <button className="p-2 float-end" style={buttonStyle} onClick={onButtonClick}>
                   번역하기
                 </button>
               </div>
@@ -215,13 +197,6 @@ function MainPage() {
               border: "1px solid #eee",
             }}
           >
-            {showVideoPlayer && (
-              <VideoPlayer
-                data={
-                  ocr ? ocr.replaceAll(" ", "").replaceAll("_", " ") : textValue
-                }
-              />
-            )}
             <VideoPlayer list={playList} />
           </div>
           <div className="col-md-1"></div>
