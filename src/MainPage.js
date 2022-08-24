@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useSpeechRecognition } from "react-speech-kit";
 import { createWorker } from "tesseract.js";
 import VideoPlayer from "./VideoPlayer";
+import loadingImage from "./loading.gif";
 import DataHandler from "./DataHandler";
+
 const buttonStyle = {
   width: "7rem",
   height: "3rem",
@@ -62,6 +64,7 @@ function MainPage() {
       setImage(e.target.files[0]);
     }
     fileReader.onload = () => {
+      setOcr(100);
       setImage(fileReader.result);
     };
   };
@@ -114,10 +117,33 @@ function MainPage() {
             <div>
               <div className="p-4">
                 {image ? (
-                  <div className="text-center ">
-                    <img src={image} style={{ width: "30rem", height: "20rem" }} alt="UploadedImage" />
-                    <button type="button" class="btn-close" aria-label="Close" onClick={deleteImage}></button>
-                  </div>
+                  ocr == 100 ? (
+                    <div style={{ width: "30rem", height: "20rem" }}>
+                      <img
+                        src={loadingImage}
+                        style={{ width: "10rem", height: "10rem" }}
+                        alt="loading"
+                      />
+                      <p>
+                        이미지를 한국어로 변환 중 입니다.. <br></br>잠시 기다려
+                        주세요
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="text-center ">
+                      <img
+                        src={image}
+                        style={{ width: "30rem", height: "20rem" }}
+                        alt="UploadedImage"
+                      />
+                      <button
+                        type="button"
+                        class="btn-close"
+                        aria-label="Close"
+                        onClick={deleteImage}
+                      ></button>
+                    </div>
+                  )
                 ) : (
                   <textarea
                     className="myText"
@@ -170,7 +196,11 @@ function MainPage() {
                 </svg>
                 {/* <p>{image.image_file.name}</p> */}
 
-                <button className="p-2 float-end" style={buttonStyle} onClick={onButtonClick}>
+                <button
+                  className="p-2 float-end"
+                  style={buttonStyle}
+                  onClick={onButtonClick}
+                >
                   번역하기
                 </button>
               </div>
@@ -178,13 +208,20 @@ function MainPage() {
           </div>
 
           <div
-            className="col-md-5 m-2"
+            className="col-md-5 m-2 align-middle"
             style={{
               width: "35rem",
               height: "25rem",
               border: "1px solid #eee",
             }}
           >
+            {showVideoPlayer && (
+              <VideoPlayer
+                data={
+                  ocr ? ocr.replaceAll(" ", "").replaceAll("_", " ") : textValue
+                }
+              />
+            )}
             <VideoPlayer list={playList} />
           </div>
           <div className="col-md-1"></div>
