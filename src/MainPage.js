@@ -3,13 +3,14 @@ import { useSpeechRecognition } from "react-speech-kit";
 import { createWorker } from "tesseract.js";
 import VideoPlayer from "./VideoPlayer";
 import loadingImage from "./loading.gif";
+import DataHandler from "./DataHandler";
 
 const buttonStyle = {
   width: "7rem",
   height: "3rem",
   fontWeight: "700",
   fontSize: "20px",
-  backgroundColor: "#21DC6D",
+  backgroundColor: "#00A2FF",
   border: "none",
   color: "#ffffff",
 };
@@ -17,7 +18,7 @@ const buttonStyle = {
 function MainPage() {
   const [textValue, setTextValue] = useState("");
   const [listenActivating, setListenActivating] = useState(false);
-  const [showVideoPlayer, setShowVideoPlayer] = useState(false);
+  const [playList, updatePlayList] = useState(0);
   let inputRef;
   const { listen, stop } = useSpeechRecognition({
     onResult: (result) => {
@@ -82,9 +83,14 @@ function MainPage() {
 
   //번역하기 버튼 누를시
   const onButtonClick = () => {
-    console.log("번역하기 버튼 클릭");
-    if (showVideoPlayer === false) setShowVideoPlayer(true);
+    //DataHandler()에서 주소 리스트 받아옴
+    const getData = async () => {
+      const data = await DataHandler(ocr ? ocr.replaceAll(" ", "").replaceAll("_", " ") : textValue);
+      updatePlayList(data);
+    };
+    getData();
   };
+
   return (
     <>
       <div className="container-fluid text-center mt-5">
@@ -105,7 +111,7 @@ function MainPage() {
             className="col-md-5 m-2 p-0"
             style={{
               width: "35rem",
-              border: "1px solid #ddd",
+              border: "1px solid #eee",
             }}
           >
             <div>
@@ -160,15 +166,15 @@ function MainPage() {
                 </div>
               </div>
 
-              <div className="" style={{ borderTop: "1px solid #ddd" }}>
+              <div className="" style={{ borderTop: "1px solid #eee" }}>
                 <svg
                   className="p-1 m-2 float-start myHover"
                   xmlns="http://www.w3.org/2000/svg"
                   width="2rem"
                   height="2rem"
-                  fill="currentColor"
+                  fill="#ddd"
                   viewBox="0 0 16 16"
-                  opacity="0.5"
+                  opacity="1"
                   onClick={() => {
                     setListenActivating(!listenActivating);
                   }}
@@ -180,9 +186,9 @@ function MainPage() {
                   xmlns="http://www.w3.org/2000/svg"
                   width="2rem"
                   height="2rem"
-                  fill="currentColor"
+                  fill="#ddd"
                   viewBox="0 0 16 16"
-                  opacity="0.5"
+                  opacity="1"
                   onClick={() => inputRef.click()}
                 >
                   <path d="M6.002 5.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0z" />
@@ -206,7 +212,7 @@ function MainPage() {
             style={{
               width: "35rem",
               height: "25rem",
-              border: "1px solid #ddd",
+              border: "1px solid #eee",
             }}
           >
             {showVideoPlayer && (
@@ -216,6 +222,7 @@ function MainPage() {
                 }
               />
             )}
+            <VideoPlayer list={playList} />
           </div>
           <div className="col-md-1"></div>
         </div>
