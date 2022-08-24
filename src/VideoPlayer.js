@@ -26,7 +26,7 @@ const VideoPlayer = (props) => {
   };
 
   return (
-    <div>
+    <div className="py-4">
       <ReactPlayer
         url={playList[playIndex]}
         width="33rem"

@@ -202,7 +202,7 @@ function MainPage() {
           </div>
 
           <div
-            className="col-md-5 m-2"
+            className="col-md-5 m-2 align-middle"
             style={{
               width: "35rem",
               height: "25rem",
