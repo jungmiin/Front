@@ -1,5 +1,5 @@
-import NavHeader from "./NavHeader";
-import MainPage from "./MainPage";
+import NavHeader from "./components/header";
+import MainPage from "./pages/MainPage";
 
 function App() {
   return (
